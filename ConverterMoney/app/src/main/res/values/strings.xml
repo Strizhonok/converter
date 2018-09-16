@@ -6,4 +6,5 @@
 
     <string name="premission">Permission has got</string>
     <string name="not_premission">Permission has not got</string>
+    <string name="error">Error initialization camera</string>
 </resources>
