@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "715253975627",
+    "firebase_url": "https://convertermoney.firebaseio.com",
+    "project_id": "convertermoney",
+    "storage_bucket": "convertermoney.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:715253975627:android:5d5a49052710b426",
+        "android_client_info": {
+          "package_name": "com.strizhonok.convertermoney"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "715253975627-7r1vvthr8vcb99ukenp39ctbnjo84r52.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.strizhonok.convertermoney",
+            "certificate_hash": "8795cc4ee550f74943ba70ce7cda5161eeb46956"
+          }
+        },
+        {
+          "client_id": "715253975627-c97phj5rg0jaguac8j1b3vosan02rc44.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQV9-9JVaWQPAUu-KDv162BD2OrqDOwAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "715253975627-c97phj5rg0jaguac8j1b3vosan02rc44.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
