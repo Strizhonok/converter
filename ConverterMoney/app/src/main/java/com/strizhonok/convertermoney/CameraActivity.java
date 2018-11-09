@@ -3,6 +3,7 @@ package com.strizhonok.convertermoney;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -77,6 +78,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_camera);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         cameraLayout = findViewById(R.id.layout_camera);
        // mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -128,7 +130,6 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
             camera = Camera.open(CAMERA_ID);
             camera.setPreviewDisplay(holder);
             camera.startPreview();
-            camera.autoFocus(this);
             setCameraDisplayOrientation(CAMERA_ID);
         } catch (IOException e) {
             e.printStackTrace();
@@ -161,63 +162,53 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
     void setCameraDisplayOrientation(int cameraId)
     {
-        try
+        // определяем насколько повернут экран от нормального положения
+        int rotation = getWindowManager().getDefaultDisplay().getRotation();
+        int degrees = 0;
+        switch (rotation) //потом пригодится, пока всегда 0
         {
-            // определяем насколько повернут экран от нормального положения
-            int rotation = ((WindowManager) this.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
-            int degrees = 0;
-            switch (rotation) {
-                case Surface.ROTATION_0:
-                    degrees = 0;
-                    break;
-                case Surface.ROTATION_90:
-                    degrees = 90;
-                    break;
-                case Surface.ROTATION_180:
-                    degrees = 180;
-                    break;
-                case Surface.ROTATION_270:
-                    degrees = 270;
-                    break;
-            }
-
-            int result = 0;
-
-            // получаем инфо по камере cameraId
-            Camera.CameraInfo info = new Camera.CameraInfo();
-            Camera.getCameraInfo(cameraId, info);
-
-            result = ((360 - degrees) + info.orientation);
-            result = result % 360;
-
-            camera.setDisplayOrientation(result);
-        }
-        catch (NullPointerException e)
-        {
-            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
+            case Surface.ROTATION_0:
+                degrees = 0;
+                break;
+            case Surface.ROTATION_90:
+                degrees = 90;
+                break;
+            case Surface.ROTATION_180:
+                degrees = 180;
+                break;
+            case Surface.ROTATION_270:
+                degrees = 270;
+                break;
         }
 
+        int result = 0;
+
+        // получаем инфо по камере cameraId
+        Camera.CameraInfo info = new Camera.CameraInfo();
+        Camera.getCameraInfo(cameraId, info);
+
+        result = ((360 - degrees) + info.orientation);
+        result = result % 360;
+
+        camera.setDisplayOrientation(result);
+    }
+
+    public void clickCameraImage(View view)
+    {
+        Log.d("my_c", "on click");
+        //camera.autoFocus(this);
     }
 
     @Override
     public void onAutoFocus(boolean b, final Camera myCamera)
     {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Log.d("my_c", "on focus");
-                if (myCamera != null && (Camera.Parameters.FOCUS_MODE_AUTO.equals(myCamera.getParameters().getFocusMode()) ||
-                        Camera.Parameters.FOCUS_MODE_MACRO.equals(myCamera.getParameters().getFocusMode()))) {
-                    myCamera.autoFocus(CameraActivity.this);
-                    myCamera.takePicture(null, null, null, CameraActivity.this);
-                }
-            }
-        }).start();
+        Log.d("my_c", "on focus");
+        if (myCamera != null && (Camera.Parameters.FOCUS_MODE_AUTO.equals(myCamera.getParameters().getFocusMode()) ||
+                Camera.Parameters.FOCUS_MODE_MACRO.equals(myCamera.getParameters().getFocusMode())))
+        {
+            myCamera.autoFocus(CameraActivity.this);
+            myCamera.takePicture(null, null, null, CameraActivity.this);
+        }
     }
 /*
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -263,7 +254,14 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     @Override
     public void onPictureTaken(byte[] paramArrayOfByte, Camera myCamera)
     {
-        Log.d("my_c", "on preview");
+        try
+        {
+            Log.d("my_c", "on preview");
+        }
+        catch( RuntimeException e)
+        {
+            Log.d("my_c", "error" + e.toString());
+        }
         /*DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
@@ -316,5 +314,4 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                             }
                         });*/
     }
-
 }
