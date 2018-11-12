@@ -21,6 +21,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -50,7 +51,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     protected SurfaceHolder holder;
     protected SurfaceView surfaceView;
     protected Camera camera;
-    protected LinearLayout cameraLayout;
+    protected FrameLayout cameraLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
