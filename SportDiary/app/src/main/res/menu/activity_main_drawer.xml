@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_training"
+            android:title="@string/nav_menu_training"
+            android:icon="@mipmap/ic_menu_training" />
+
+        <item
+            android:id="@+id/nav_mytraining"
+            android:title="@string/nav_menu_mytraining"
+            android:icon="@mipmap/ic_menu_mytraining" />
+        <item
+            android:id="@+id/nav_favourite"
+            android:title="@string/nav_menu_favourite"
+            android:icon="@mipmap/ic_menu_favourite" />
+        <item
+            android:id="@+id/nav_account"
+            android:title="@string/nav_menu_account"
+            android:icon="@mipmap/ic_menu_account" />
+        <item
+            android:id="@+id/nav_settings"
+            android:title="@string/nav_menu_settings"
+            android:icon="@mipmap/ic_menu_settings" />
+        </group>
+
+</menu>
